@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/card_elevation"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_margin="@dimen/card_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/package_installed_padding">
+
+        <ImageView
+            android:id="@+id/app_icon_image_view"
+            android:layout_width="@dimen/app_icon_image_view_width"
+            android:layout_height="@dimen/app_icon_image_view_height"
+            tools:src="@mipmap/ic_launcher"
+            android:padding="@dimen/app_icon_padding"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/app_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Sberbank" />
+
+            <TextView
+                android:id="@+id/app_package_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="ru.sberbankmobile" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
