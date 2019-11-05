@@ -36,8 +36,11 @@ public class MainPresenterTest {
     private MainPresenter mMainPresenter;
 
     @Before
-    public void setUp() throws Exception {
-        mMainPresenter = new MainPresenter(mMainActivity, mPackageInstalledRepository, true);
+    public void setUp() {
+        mMainPresenter = new MainPresenter(mMainActivity,
+                mPackageInstalledRepository,
+                true,
+                MainPresenter.SortType.NO_SORT);
     }
 
     @Test
@@ -61,6 +64,24 @@ public class MainPresenterTest {
 
         mMainPresenter.setLoadSystemState(false);
         Assert.assertEquals(false, field.getBoolean(mMainPresenter));
+    }
+
+    @Test
+    public void testSetSortType() throws NoSuchFieldException, IllegalAccessException {
+        Field field = MainPresenter.class.getDeclaredField("mSortType");
+        field.setAccessible(true);
+
+        mMainPresenter.setSortType(MainPresenter.SortType.NO_SORT);
+        Assert.assertEquals(MainPresenter.SortType.NO_SORT,
+                field.get(mMainPresenter));
+
+        mMainPresenter.setSortType(MainPresenter.SortType.BY_APP_NAME_ASC);
+        Assert.assertEquals(MainPresenter.SortType.BY_APP_NAME_ASC,
+                field.get(mMainPresenter));
+
+        mMainPresenter.setSortType(MainPresenter.SortType.BY_PACKAGE_NAME_ASC);
+        Assert.assertEquals(MainPresenter.SortType.BY_PACKAGE_NAME_ASC,
+                field.get(mMainPresenter));
     }
 
     private List<InstalledPackageModel> createTestData() {

@@ -34,6 +34,12 @@
                 android:text="@string/update" />
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/spinner_sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/top_menu_padding" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

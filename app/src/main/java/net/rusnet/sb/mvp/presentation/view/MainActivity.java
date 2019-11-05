@@ -2,8 +2,10 @@ package net.rusnet.sb.mvp.presentation.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,16 +16,20 @@ import net.rusnet.sb.mvp.data.model.InstalledPackageModel;
 import net.rusnet.sb.mvp.data.repository.PackageInstalledRepository;
 import net.rusnet.sb.mvp.presentation.presenter.MainPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements IMainActivity {
 
-    private RecyclerView mRecyclerView;
     private View mProgressFrameLayout;
 
     private CompoundButton mLoadSystemCheckBox;
     private Button mLoadButton;
+
+    private Spinner mSortBySpinner;
+
+    private RecyclerView mRecyclerView;
 
     private MainPresenter mMainPresenter;
 
@@ -47,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
                 new PackageInstalledRepository(this);
         mMainPresenter = new MainPresenter(this,
                 packageInstalledRepository,
-                mLoadSystemCheckBox.isChecked());
+                mLoadSystemCheckBox.isChecked(),
+                getSortTypeFromSpinner());
     }
 
     private void initViews() {
@@ -59,20 +66,30 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         mProgressFrameLayout = findViewById(R.id.progress_frame_layout);
 
         mLoadSystemCheckBox = findViewById(R.id.checkbox_show_system);
-        mLoadSystemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMainPresenter.setLoadSystemState(isChecked);
-            }
-        });
+
+        mSortBySpinner = findViewById(R.id.spinner_sort_by);
+        ArrayList<String> sortTypes = new ArrayList<>();
+        sortTypes.add(getString(R.string.no_sort));
+        sortTypes.add(getString(R.string.by_app_name_asc));
+        sortTypes.add(getString(R.string.by_package_name_asc));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                MainActivity.this, android.R.layout.simple_spinner_item, sortTypes
+        );
+        mSortBySpinner.setAdapter(adapter);
 
         mLoadButton = findViewById(R.id.button_load);
         mLoadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainPresenter.setLoadSystemState(mLoadSystemCheckBox.isChecked());
+
+                mMainPresenter.setSortType(getSortTypeFromSpinner());
+
                 mMainPresenter.loadDataAsync();
             }
         });
+
+
     }
 
     @Override
@@ -96,5 +113,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         super.onDestroy();
 
         mMainPresenter.detachView();
+    }
+
+    private MainPresenter.SortType getSortTypeFromSpinner() {
+        String spinnerText = mSortBySpinner.getSelectedItem().toString();
+        if (spinnerText.equals(getString(R.string.by_app_name_asc)))
+            return MainPresenter.SortType.BY_APP_NAME_ASC;
+        if (spinnerText.equals(getString(R.string.by_package_name_asc)))
+            return MainPresenter.SortType.BY_PACKAGE_NAME_ASC;
+        return MainPresenter.SortType.NO_SORT;
     }
 }

@@ -2,4 +2,9 @@
     <string name="app_name">MVP</string>
     <string name="show_system">Показать системные</string>
     <string name="update">Обновить</string>
+
+    <string name="no_sort">Без сортировки</string>
+    <string name="by_app_name_asc">A-Z по имени приложения</string>
+    <string name="by_package_name_asc">A-Z по имени пакета</string>
+
 </resources>
