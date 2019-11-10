@@ -7,4 +7,10 @@
     <string name="by_app_name_asc">A-Z по имени приложения</string>
     <string name="by_package_name_asc">A-Z по имени пакета</string>
 
+    <string-array name="sort_types_array">
+        <item>@string/no_sort</item>
+        <item>@string/by_app_name_asc</item>
+        <item>@string/by_package_name_asc</item>
+    </string-array>
+
 </resources>

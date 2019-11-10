@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         mLoadSystemCheckBox = findViewById(R.id.checkbox_show_system);
 
         mSortBySpinner = findViewById(R.id.spinner_sort_by);
-        ArrayList<String> sortTypes = new ArrayList<>();
-        sortTypes.add(getString(R.string.no_sort));
-        sortTypes.add(getString(R.string.by_app_name_asc));
-        sortTypes.add(getString(R.string.by_package_name_asc));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                MainActivity.this, android.R.layout.simple_spinner_item, sortTypes
-        );
-        mSortBySpinner.setAdapter(adapter);
 
         mLoadButton = findViewById(R.id.button_load);
         mLoadButton.setOnClickListener(new View.OnClickListener() {

@@ -38,6 +38,7 @@
             android:id="@+id/spinner_sort_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:entries="@array/sort_types_array"
             android:padding="@dimen/top_menu_padding" />
 
         <androidx.recyclerview.widget.RecyclerView
